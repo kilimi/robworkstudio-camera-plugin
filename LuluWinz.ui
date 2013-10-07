@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LuluWinz</class>
+ <widget class="QDockWidget" name="LuluWinz">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>468</width>
+    <height>183</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DockWidget</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
+      <item>
+       <widget class="QPushButton" name="myButton">
+        <property name="text">
+         <string>My Button</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="_btn1">
+        <property name="text">
+         <string>PushButton1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="_checkBox">
+        <property name="text">
+         <string>CheckBox</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
