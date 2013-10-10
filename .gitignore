@@ -1,6 +1,7 @@
 *.so
 CMakeFiles/
 moc_*.cxx
-qrc_resources.cxx
+qrc_*.cxx
 ui_*.h
-
+CMakeCache.txt
+Makefile
