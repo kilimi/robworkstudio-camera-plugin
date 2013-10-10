@@ -1,13 +1,15 @@
 
 #include "lulu_winz.hpp"
 
+#include <string.h>
+
 #include <rw/rw.hpp>
 #include <rwlibs/simulation/GLFrameGrabber25D.hpp>
 #include <RobWorkStudio.hpp>
 #include <rw/geometry/PointCloud.hpp>
 #include "ui_LuluWinz.h"
 #include <rwlibs/simulation/SimulatedKinnect.hpp>
-
+#include <opencv2/opencv.hpp>
 
 
 USE_ROBWORK_NAMESPACE
@@ -60,31 +62,41 @@ void LuluWinz::sick1Event() {
     log().info() << "Loading scene\n";
 }
 
+
+void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
+{
+    _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
+    const Image25D& img = _fgrabber->getImage();
+
+    PointCloud pcloud(img.getWidth(),img.getHeight());
+    pcloud.getData() = img.getData();
+
+//    log().info() << pcloud.getData()[0] <<"\n";
+//    log().info() << pcloud.getData()[1] <<"\n";
+//    log().info() << pcloud.getData()[2] <<"\n";
+
+    PointCloud::savePCD(pcloud, name);
+    log().info() << "image grabbed!" << name <<"\n";
+}
+
 void LuluWinz::sick2Event() 
 {
     QObject *obj = sender();
 
     Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice.LeftVisu");
+    Frame *camFrameDown = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice1.LeftVisu");
+
     if(camFrame!=NULL)
     {
-      _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
-      const Image25D& img = _fgrabber->getImage();
+        createAndSavePCD(camFrame, std::string("MyPointCloud.pcd"));
+//        _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
+//        const Image25D& img = _fgrabber->getImage();
+//        PointCloud pcloud(img.getWidth(),img.getHeight());
+//        pcloud.getData() = img.getData();
+//        PointCloud::savePCD(pcloud, "MyPointCloud.pcd");
+//        log().info() << "Up saved!" <<"\n";
 
-     /* SimulatedKinnect* scanner = new SimulatedKinnect(camFrame->getName(), camFrame);
-      rw::sensor::Image25D *_img25D;
-      _img25D = (Image25D*)&scanner->getScan();
-      Image* _img2D = (Image*)&scanner->getImage();
-      _img2D->saveAsPPM("2Dimage.ppm");
-      //PointCloud<pcl::PointXYZRGB>::Ptr cloud = toPointCloud(_img25D, _color, vueAngle);
-      //PointCloud::savePCD(cloud, "MyPointCloudusingScanner.pcd");
-*/
-      PointCloud pcloud(img.getWidth(),img.getHeight());
-      pcloud.getData() = img.getData();
-      
-      log().info() << pcloud.getData()[0] <<"\n";
-      
-      PointCloud::savePCD(pcloud, "MyPointCloud.pcd");
-      log().info() << "image grabbed!\n";
+
     }
     else
     {

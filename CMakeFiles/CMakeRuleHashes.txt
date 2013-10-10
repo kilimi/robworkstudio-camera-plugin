@@ -1,4 +1,0 @@
-# Hashes of file build rules.
-035fe545ad9dc60b07d264bdce398821 moc_lulu_winz.cxx
-797383c58a2b38f60ffdf9cd03067aa7 qrc_resources.cxx
-1534b7d4da660666ef7fcd2b0bc8cfc7 ui_LuluWinz.h

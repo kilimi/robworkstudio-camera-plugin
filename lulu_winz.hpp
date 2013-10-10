@@ -1,9 +1,13 @@
 #ifndef LULUWINZ_HPP
 #define LULUWINZ_HPP
 
+#include <string.h>
+
 #include <rws/RobWorkStudioPlugin.hpp>
 
 #include "ui_LuluWinz.h"
+
+using namespace rw::kinematics;
 
 class LuluWinz: public rws::RobWorkStudioPlugin, private Ui::LuluWinz
 {
@@ -18,6 +22,7 @@ public:
     virtual void close();
     virtual void initialize();
 
+
 private slots:
     void sick1Event();
     void sick2Event();
@@ -25,6 +30,8 @@ private slots:
     void stateChangedListener(const rw::kinematics::State& state);
 private:
     //QPushButton* _btn0,*_btn1;
+    void createAndSavePCD(Frame *, std::string);
+
 };
 
 #endif /*LULUWINZ_HPP*/

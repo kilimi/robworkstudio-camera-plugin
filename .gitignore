@@ -1,1 +1,6 @@
 *.so
+CMakeFiles/
+moc_*.cxx
+qrc_resources.cxx
+ui_*.h
+
