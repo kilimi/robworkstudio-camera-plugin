@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'LuluWinz.ui'
 **
-** Created: Mon Oct 7 20:38:05 2013
+** Created: Tue Oct 8 15:10:31 2013
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -30,7 +30,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QPushButton *myButton;
-    QPushButton *_btn1;
+    QPushButton *run;
     QCheckBox *_checkBox;
 
     void setupUi(QDockWidget *LuluWinz)
@@ -49,10 +49,10 @@ public:
 
         verticalLayout->addWidget(myButton);
 
-        _btn1 = new QPushButton(dockWidgetContents);
-        _btn1->setObjectName(QString::fromUtf8("_btn1"));
+        run = new QPushButton(dockWidgetContents);
+        run->setObjectName(QString::fromUtf8("run"));
 
-        verticalLayout->addWidget(_btn1);
+        verticalLayout->addWidget(run);
 
         _checkBox = new QCheckBox(dockWidgetContents);
         _checkBox->setObjectName(QString::fromUtf8("_checkBox"));
@@ -72,8 +72,8 @@ public:
     void retranslateUi(QDockWidget *LuluWinz)
     {
         LuluWinz->setWindowTitle(QApplication::translate("LuluWinz", "DockWidget", 0, QApplication::UnicodeUTF8));
-        myButton->setText(QApplication::translate("LuluWinz", "My Button", 0, QApplication::UnicodeUTF8));
-        _btn1->setText(QApplication::translate("LuluWinz", "PushButton1", 0, QApplication::UnicodeUTF8));
+        myButton->setText(QApplication::translate("LuluWinz", "Load Scene", 0, QApplication::UnicodeUTF8));
+        run->setText(QApplication::translate("LuluWinz", "Run", 0, QApplication::UnicodeUTF8));
         _checkBox->setText(QApplication::translate("LuluWinz", "CheckBox", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

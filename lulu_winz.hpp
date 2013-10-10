@@ -24,7 +24,7 @@ private slots:
 
     void stateChangedListener(const rw::kinematics::State& state);
 private:
-    QPushButton* _btn0,*_btn1;
+    //QPushButton* _btn0,*_btn1;
 };
 
 #endif /*LULUWINZ_HPP*/

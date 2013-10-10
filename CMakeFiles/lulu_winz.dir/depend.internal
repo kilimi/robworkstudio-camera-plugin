@@ -33,6 +33,29 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../ext/rwpqp/PQP/PQP_Internal.h
  /home/lulu/RobWorks/trunk/RobWork/cmake/../ext/rwpqp/PQP/Tri.h
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/RobWorkConfig.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Cache.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/ConcatVectorIterator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Event.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Exception.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/IOUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Log.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/LogBufferedChar.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/LogBufferedMsg.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/LogStreamWriter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/LogWriter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Message.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/ProgramOptions.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Property.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/PropertyBase.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/PropertyMap.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/PropertyType.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Ptr.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/StringUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/Timer.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/TimerUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/VectorIterator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/macros.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./common/os.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/Box.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/Cone.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/Contour2D.hpp
@@ -57,20 +80,183 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/Triangle.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/TriangleUtil.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./geometry/Tube.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/CCDSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/ClosedFormIK.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/IKMetaSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/InvKinSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/IterativeIK.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/IterativeMultiIK.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/JacobianIKSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/JacobianIKSolverM.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/ParallelIKSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./invkin/PieperSolver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FKRange.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FKTable.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FixedFrame.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/Frame.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FrameMap.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FramePairMap.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/FrameType.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/Kinematics.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/MovableFrame.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/QState.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/State.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/StateData.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/StateSetup.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/StateStructure.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/StatelessData.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./kinematics/TreeState.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/ImageFactory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/ImageLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/WorkCellLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/colsetup/CollisionSetupLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/image/../ImageLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/image/PGMLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/image/RGBLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/path/PathLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/DependencyGraph.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/MultipleFileIterator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XML.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLErrorHandler.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLParser.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLParserUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLRWLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLRWParser.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/rwxml/XMLRWPreParser.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/tul/TULLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/tul/Tag.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLBasisTypes.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLPathFormat.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLPathLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLPathSaver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLPropertyLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLPropertySaver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLTrajectoryLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XMLTrajectorySaver.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XercesErrorHandler.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./loaders/xml/XercesUtils.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Constants.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/EAA.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/InertiaMatrix.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Jacobian.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Line2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/LinearAlgebra.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Math.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Metric.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/MetricFactory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/MetricUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/PerspectiveTransform2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Pose2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Pose6D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Q.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Quaternion.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/RPY.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Rotation2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Rotation3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Rotation3DVector.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Transform2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Transform3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Vector2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Vector3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/VelocityScrew6D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./math/Wrench6D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/CompositeDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/DependentJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/DependentPrismaticJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/DependentRevoluteJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/Device.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/JacobianCalculator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/JacobianUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/Joint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/JointDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/JointDeviceJacobianCalculator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/MobileDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/Models.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/Object.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/ParallelDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/ParallelLeg.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/PrismaticJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/RevoluteJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/RigidBodyInfo.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/SerialDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/TreeDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/VirtualJoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./models/WorkCell.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/PathPlanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/PlannerConstraint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/PlannerUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QConstraint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QEdgeConstraint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QIKSampler.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QNormalizer.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QSampler.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QToQPlanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QToQSamplerPlanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/QToTPlanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/StateConstraint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./pathplanning/StopCriteria.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/CollisionDetector.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/CollisionSetup.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/CollisionStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/CollisionToleranceStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/DistanceCalculator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/DistanceStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/DistanceThresholdStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/DistanceToleranceStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/ProximityModel.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./proximity/ProximityStrategy.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Camera.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/CameraFirewire.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/CameraListener.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Contact3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Image.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Image25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/ImageUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Scan2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Scanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Scanner1D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Scanner25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Scanner2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/Sensor.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/SensorData.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/StereoCameraModel.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./sensor/TactileArray.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/Blend.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/BlendedTrajectory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/CircularInterpolator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/CubicSplineFactory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/CubicSplineInterpolator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/Interpolator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/InterpolatorTrajectory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/InterpolatorUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/LinearInterpolator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/LloydHaywardBlend.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/ParabolicBlend.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/Path.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/RampInterpolator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/Timed.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/TimedUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/Trajectory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/TrajectoryFactory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/TrajectoryIterator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/./trajectory/TrajectorySequence.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/RobWork.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/AnyPtr.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Archive.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Cache.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/ConcatVectorIterator.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Event.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Exception.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/IOUtil.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Extension.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/ExtensionPoint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/ExtensionRegistry.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Log.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/LogWriter.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Message.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/PairMap.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Property.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/PropertyBase.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/PropertyMap.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/PropertyType.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Ptr.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/Serializable.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/StringUtil.hpp
@@ -80,6 +266,9 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/os.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/common/types.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/Contour2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/ConvexHull3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/ConvexHullND.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/Geometry.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/GeometryData.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/IndexedPolygon.hpp
@@ -87,7 +276,9 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/IndexedTriangle.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/Line.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/PlainTriMesh.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/Primitive.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/PointCloud.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/QHullND.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/TriMesh.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/Triangle.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/geometry/TriangleUtil.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graphics/DrawableGeometryNode.hpp
@@ -103,9 +294,35 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graphics/SceneViewer.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graphics/TextureData.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graphics/WorkCellScene.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/ApproachMeasure3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/CMDistCCPMeasure3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/CompositeContactFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/CompositeGraspFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/ContactDistThresFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/ContactValidateFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/Contour2DInfoMap.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/CurvatureThresFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/DiceContactG3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/GWSMeasure3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/Grasp2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/Grasp3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/GraspQualityMeasure3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/GraspTable.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/GraspValidateFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/PlaneClearanceFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/QualityMeasure2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/SemiForceClosureFilter.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/graspplanning/WrenchMeasure3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/invkin.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/invkin/IterativeIK.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/invkin/IterativeMultiIK.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/FKRange.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/FKTable.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/Frame.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/FrameMap.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/MovableFrame.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/QState.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/State.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/StateCache.hpp
@@ -114,14 +331,22 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/Stateless.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/StatelessData.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/kinematics/TreeState.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/loaders.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/loaders/GeometryFactory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/loaders/WorkCellLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/loaders/model3d/../GeometryLoader.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/loaders/model3d/STLFile.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Constants.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/EAA.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/EigenDecomposition.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Function.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/InertiaMatrix.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Jacobian.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/LinearAlgebra.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Math.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Metric.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/MetricFactory.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/MetricUtil.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Q.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Quaternion.hpp
@@ -129,14 +354,24 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Rotation2D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Rotation3D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Rotation3DVector.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Transform2D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Transform3D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Vector2D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/Vector3D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/VectorND.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/math/VelocityScrew6D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/DHParameterSet.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/Device.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/JacobianCalculator.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/Joint.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/Object.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/ParallelDevice.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/SerialDevice.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/models/WorkCell.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/pathplanning.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/pathplanning/QConstraint.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/CollisionDetector.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/CollisionSetup.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/CollisionStrategy.hpp
@@ -147,22 +382,37 @@ CMakeFiles/lulu_winz.dir/lulu_winz.cpp.o
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityCache.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityFilter.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityFilterStrategy.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityModel.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximitySetup.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximitySetupRule.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityStrategy.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/proximity/ProximityStrategyData.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/rw.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Contact2D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Contact3D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Image.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Image25D.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Scan2D.hpp
- /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/SensorData.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Scanner.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Scanner25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/Sensor.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/SensorModel.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/sensor/TactileArray.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory/Interpolator.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory/Path.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory/Timed.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory/Trajectory.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rw/trajectory/TrajectoryIterator.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/opengl/RenderCameraFrustum.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/os/glext_win32.h
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/os/rwgl.hpp
  /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/proximitystrategies/ProximityStrategyPQP.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/FrameGrabber25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/GLFrameGrabber25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/SimulatedKinnect.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/SimulatedScanner25D.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/SimulatedSensor.hpp
+ /home/lulu/RobWorks/trunk/RobWork/cmake/../src/rwlibs/simulation/Simulator.hpp
  /home/lulu/RobWorks/trunk/RobWorkStudio/cmake/../ext/qtpropertybrowser/src/QtTreePropertyBrowser
  /home/lulu/RobWorks/trunk/RobWorkStudio/cmake/../ext/qtpropertybrowser/src/QtVariantEditorFactory
  /home/lulu/RobWorks/trunk/RobWorkStudio/cmake/../ext/qtpropertybrowser/src/QtVariantPropertyManager
@@ -947,6 +1197,7 @@ CMakeFiles/lulu_winz.dir/moc_lulu_winz.cxx.o
  /home/lulu/RobWorks/trunk/RobWorkStudio/cmake/../src/rws/RobWorkStudioPlugin.hpp
  /home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz/lulu_winz.hpp
  /home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz/moc_lulu_winz.cxx
+ /home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz/ui_LuluWinz.h
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Dense
@@ -1135,6 +1386,7 @@ CMakeFiles/lulu_winz.dir/moc_lulu_winz.cxx.o
  /usr/include/qt4/QtCore/QObject
  /usr/include/qt4/QtCore/QPoint
  /usr/include/qt4/QtCore/QPointF
+ /usr/include/qt4/QtCore/QVariant
  /usr/include/qt4/QtCore/QtCore
  /usr/include/qt4/QtCore/qabstractanimation.h
  /usr/include/qt4/QtCore/qabstracteventdispatcher.h
@@ -1300,11 +1552,16 @@ CMakeFiles/lulu_winz.dir/moc_lulu_winz.cxx.o
  /usr/include/qt4/QtCore/qvector.h
  /usr/include/qt4/QtCore/qwaitcondition.h
  /usr/include/qt4/QtCore/qxmlstream.h
+ /usr/include/qt4/QtGui/QAction
+ /usr/include/qt4/QtGui/QApplication
+ /usr/include/qt4/QtGui/QButtonGroup
+ /usr/include/qt4/QtGui/QCheckBox
  /usr/include/qt4/QtGui/QCleanlooksStyle
  /usr/include/qt4/QtGui/QCommonStyle
  /usr/include/qt4/QtGui/QDockWidget
  /usr/include/qt4/QtGui/QFileDialog
  /usr/include/qt4/QtGui/QFont
+ /usr/include/qt4/QtGui/QHeaderView
  /usr/include/qt4/QtGui/QIcon
  /usr/include/qt4/QtGui/QLayout
  /usr/include/qt4/QtGui/QMatrix4x4
@@ -1312,9 +1569,12 @@ CMakeFiles/lulu_winz.dir/moc_lulu_winz.cxx.o
  /usr/include/qt4/QtGui/QPalette
  /usr/include/qt4/QtGui/QPlatformWindow
  /usr/include/qt4/QtGui/QPrinter
+ /usr/include/qt4/QtGui/QPushButton
  /usr/include/qt4/QtGui/QToolBar
  /usr/include/qt4/QtGui/QTransform
+ /usr/include/qt4/QtGui/QVBoxLayout
  /usr/include/qt4/QtGui/QVector3D
+ /usr/include/qt4/QtGui/QWidget
  /usr/include/qt4/QtGui/QtGui
  /usr/include/qt4/QtGui/qabstractbutton.h
  /usr/include/qt4/QtGui/qabstractitemdelegate.h

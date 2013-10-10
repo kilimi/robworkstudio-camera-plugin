@@ -20,14 +20,14 @@
       <item>
        <widget class="QPushButton" name="myButton">
         <property name="text">
-         <string>My Button</string>
+         <string>Load Scene</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="_btn1">
+       <widget class="QPushButton" name="run">
         <property name="text">
-         <string>PushButton1</string>
+         <string>Run</string>
         </property>
        </widget>
       </item>
