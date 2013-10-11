@@ -18,6 +18,9 @@ using namespace rws;
 using namespace rwlibs::simulation;
 using namespace rw::sensor;
 
+using namespace cv;
+using namespace std;
+
 GLFrameGrabber25D::Ptr _fgrabber;
 
 
@@ -65,15 +68,24 @@ void LuluWinz::sick1Event() {
 
 void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
 {
+    log().info() << "here\n";
     _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
     const Image25D& img = _fgrabber->getImage();
 
     PointCloud pcloud(img.getWidth(),img.getHeight());
     pcloud.getData() = img.getData();
 
-//    log().info() << pcloud.getData()[0] <<"\n";
-//    log().info() << pcloud.getData()[1] <<"\n";
-//    log().info() << pcloud.getData()[2] <<"\n";
+
+    std::vector<rw::math::Vector3D<float> >& data = pcloud.getData();
+
+    //delete the plane
+    for(int i=0;i<data.size();i++){
+        if(MetricUtil::norm2(data[i])>6){
+            data[i] = Vector3D<float>(0,0,0);
+        }
+    }
+
+    Mat image;
 
     PointCloud::savePCD(pcloud, name);
     log().info() << "image grabbed!" << name <<"\n";
@@ -88,15 +100,8 @@ void LuluWinz::sick2Event()
 
     if(camFrame!=NULL)
     {
+        log().info() << "here!\n";
         createAndSavePCD(camFrame, std::string("MyPointCloud.pcd"));
-//        _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
-//        const Image25D& img = _fgrabber->getImage();
-//        PointCloud pcloud(img.getWidth(),img.getHeight());
-//        pcloud.getData() = img.getData();
-//        PointCloud::savePCD(pcloud, "MyPointCloud.pcd");
-//        log().info() << "Up saved!" <<"\n";
-
-
     }
     else
     {
