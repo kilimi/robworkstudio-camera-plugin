@@ -5,6 +5,7 @@
 
 #include <rw/rw.hpp>
 #include <rwlibs/simulation/GLFrameGrabber25D.hpp>
+#include <rwlibs/simulation/GLFrameGrabber.hpp>
 #include <RobWorkStudio.hpp>
 #include <rw/geometry/PointCloud.hpp>
 #include "ui_LuluWinz.h"
@@ -26,6 +27,7 @@ using namespace cv;
 using namespace std;
 
 GLFrameGrabber25D::Ptr _fgrabber;
+GLFrameGrabber::Ptr _fgrabber2D;
 
 LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
 {
@@ -47,6 +49,11 @@ void LuluWinz::open(WorkCell* workcell)
    // create GLFrameGrabber
    _fgrabber = ownedPtr( new GLFrameGrabber25D(640, 480, 45, 0.1) );
    _fgrabber->init( getRobWorkStudio()->getView()->getSceneViewer() );
+
+
+   _fgrabber2D = ownedPtr( new GLFrameGrabber(640, 480, 45, 0.1) );
+   _fgrabber2D->init( getRobWorkStudio()->getView()->getSceneViewer() );
+
 
    //getRobWorkStudio()->setState(state); 
 }
@@ -99,37 +106,58 @@ void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
 
    pcl::io::savePCDFileASCII(name,cloud);
 
+   int ii = 5;
     Mat_<float> depthm(cloud.height, cloud.width);
     Mat_<Vec3b> rgb(cloud.height, cloud.width);
     for(size_t r = 0; r < depthm.rows; ++r) {
         for(size_t c = 0; c < depthm.cols; ++c){
+            //if (ii > 0) log().info() <<cloud(c,r).z << "\n";
             depthm[r][c] = cloud(c,r).z;
         }
     }
 
     Mat_<ushort> depthmm = 1000*depthm;
     imwrite("depth.png", depthm);
+    imwrite("image25D.png", depthmm);
 
     //PointCloud::savePCD(pcloud, name);
-    log().info() << "image grabbed!" << name <<"\n";
+    log().info() << "Saved point cloud: " << name <<"\n";
+    //_---------------------------
+    _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
+    const Image& img2D = _fgrabber2D->getImage();
+    img2D.saveAsPPM("image2D.ppm");
+
+    log().info() << "Image saved: " << "image2D.ppm" <<"\n";
+
 }
 
 void LuluWinz::sick2Event() 
 {
     QObject *obj = sender();
 
-    Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice.LeftVisu");
+    Frame *camFrameUp = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice.LeftVisu");
     Frame *camFrameDown = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice1.LeftVisu");
 
 
-    if(camFrame!=NULL)
+    if(camFrameUp!=NULL)
     {
-        createAndSavePCD(camFrame, std::string("Up.pcd"));
+        createAndSavePCD(camFrameUp, std::string("Up.pcd"));
     }
     else
     {
-      log().info() << "Cam frame is null\n";
+      log().info() << "camFrameUp frame is null\n";
     }
+
+   /* if(camFrameDown!=NULL)
+    {
+        createAndSavePCD(camFrameDown, std::string("Down.pcd"));
+    }
+    else
+    {
+      log().info() << "camFrameDown frame is null\n";
+    }
+*/
+
 }
 
 Q_EXPORT_PLUGIN2(LuluWinz, LuluWinz);
