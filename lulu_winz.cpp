@@ -12,6 +12,10 @@
 #include <opencv2/opencv.hpp>
 
 
+#include <iostream>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+
 USE_ROBWORK_NAMESPACE
 using namespace robwork;
 using namespace rws;
@@ -35,10 +39,10 @@ LuluWinz::~LuluWinz(){ /* deallocate used memory */ }
 
 void LuluWinz::open(WorkCell* workcell)
 { 
-  rw::kinematics::MovableFrame* _frameGrabberFrame = new rw::kinematics::MovableFrame("StereoCamTop3");
-  workcell->addFrame(_frameGrabberFrame);
+  //rw::kinematics::MovableFrame* _frameGrabberFrame = new rw::kinematics::MovableFrame("StereoCamTop3");
+  //workcell->addFrame(_frameGrabberFrame);
 
-  State state = workcell->getDefaultState();
+  //State state = workcell->getDefaultState();
     //_frameGrabberFrame->setTransform(something, state);
   
    // create GLFrameGrabber
@@ -68,13 +72,11 @@ void LuluWinz::sick1Event() {
 
 void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
 {
-    log().info() << "here\n";
     _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
     const Image25D& img = _fgrabber->getImage();
 
     PointCloud pcloud(img.getWidth(),img.getHeight());
     pcloud.getData() = img.getData();
-
 
     std::vector<rw::math::Vector3D<float> >& data = pcloud.getData();
 
@@ -85,9 +87,41 @@ void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
         }
     }
 
-    Mat image;
 
-    PointCloud::savePCD(pcloud, name);
+    //from PointCloud to pcl::PointCloud
+    pcl::PointXYZ p_default;
+    pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
+    //assert(cloud.isOrganized());
+    //Mat_<float> image (640, 480, CV_16F, cv::Scalar(0));
+    int i = 0;
+    for(size_t r = 0; r < cloud.height; ++r) {
+        for(size_t c = 0; c < cloud.width; ++c){
+            cloud(c,r).x = img.getData()[i](0);
+            cloud(c,r).y = img.getData()[i](1);
+
+            cloud(c,r).z = img.getData()[i++](2);
+        }
+    }
+
+   pcl::io::savePCDFileASCII("pointCloud.pcd",cloud);
+
+    Mat_<float> depthm(cloud.height, cloud.width);
+    Mat_<Vec3b> rgb(cloud.height, cloud.width);
+    for(size_t r = 0; r < depthm.rows; ++r) {
+        for(size_t c = 0; c < depthm.cols; ++c){
+            depthm[r][c] = cloud(c,r).z;
+        }
+    }
+
+    Mat_<ushort> depthmm = 1000*depthm;
+    imwrite("depth.png", depthm);
+
+
+    //show max for depth
+
+
+
+    //PointCloud::savePCD(pcloud, name);
     log().info() << "image grabbed!" << name <<"\n";
 }
 
@@ -97,6 +131,7 @@ void LuluWinz::sick2Event()
 
     Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice.LeftVisu");
     Frame *camFrameDown = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice1.LeftVisu");
+
 
     if(camFrame!=NULL)
     {

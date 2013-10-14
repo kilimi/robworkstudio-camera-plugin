@@ -1,10 +1,31 @@
 #ifndef LULUWINZ_HPP
 #define LULUWINZ_HPP
 
-#include <string.h>
 
 #include <rws/RobWorkStudioPlugin.hpp>
+#include <string.h>
 
+#include <rw/rw.hpp>
+#include <rwlibs/simulation/GLFrameGrabber25D.hpp>
+#include <RobWorkStudio.hpp>
+#include <rw/geometry/PointCloud.hpp>
+#include "ui_LuluWinz.h"
+#include <rwlibs/simulation/SimulatedKinnect.hpp>
+#include <opencv2/opencv.hpp>
+
+
+#include <iostream>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+
+USE_ROBWORK_NAMESPACE
+using namespace robwork;
+using namespace rws;
+using namespace rwlibs::simulation;
+using namespace rw::sensor;
+
+using namespace cv;
+using namespace std;
 #include "ui_LuluWinz.h"
 
 using namespace rw::kinematics;
