@@ -27,7 +27,6 @@ using namespace std;
 
 GLFrameGrabber25D::Ptr _fgrabber;
 
-
 LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
 {
     setupUi(this);
@@ -78,32 +77,27 @@ void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
     PointCloud pcloud(img.getWidth(),img.getHeight());
     pcloud.getData() = img.getData();
 
-    std::vector<rw::math::Vector3D<float> >& data = pcloud.getData();
-
     //delete the plane
-    for(int i=0;i<data.size();i++){
-        if(MetricUtil::norm2(data[i])>6){
-            data[i] = Vector3D<float>(0,0,0);
+    for(int i=0;i<pcloud.getData().size();i++){
+        if(MetricUtil::norm2(pcloud.getData()[i])>2){ //6
+            pcloud.getData()[i] = Vector3D<float>(0,0,0);
         }
     }
 
-
     //from PointCloud to pcl::PointCloud
-    pcl::PointXYZ p_default;
     pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
-    //assert(cloud.isOrganized());
-    //Mat_<float> image (640, 480, CV_16F, cv::Scalar(0));
+
     int i = 0;
     for(size_t r = 0; r < cloud.height; ++r) {
         for(size_t c = 0; c < cloud.width; ++c){
-            cloud(c,r).x = img.getData()[i](0);
-            cloud(c,r).y = img.getData()[i](1);
+            cloud(c,r).x = pcloud.getData()[i](0);
+            cloud(c,r).y = pcloud.getData()[i](1);
 
-            cloud(c,r).z = img.getData()[i++](2);
+            cloud(c,r).z = pcloud.getData()[i++](2);
         }
     }
 
-   pcl::io::savePCDFileASCII("pointCloud.pcd",cloud);
+   pcl::io::savePCDFileASCII(name,cloud);
 
     Mat_<float> depthm(cloud.height, cloud.width);
     Mat_<Vec3b> rgb(cloud.height, cloud.width);
@@ -115,11 +109,6 @@ void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
 
     Mat_<ushort> depthmm = 1000*depthm;
     imwrite("depth.png", depthm);
-
-
-    //show max for depth
-
-
 
     //PointCloud::savePCD(pcloud, name);
     log().info() << "image grabbed!" << name <<"\n";
@@ -135,8 +124,7 @@ void LuluWinz::sick2Event()
 
     if(camFrame!=NULL)
     {
-        log().info() << "here!\n";
-        createAndSavePCD(camFrame, std::string("MyPointCloud.pcd"));
+        createAndSavePCD(camFrame, std::string("Up.pcd"));
     }
     else
     {
