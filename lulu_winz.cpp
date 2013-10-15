@@ -40,29 +40,29 @@ LuluWinz::~LuluWinz(){ /* deallocate used memory */ }
 
 void LuluWinz::open(WorkCell* workcell)
 { 
-  //rw::kinematics::MovableFrame* _frameGrabberFrame = new rw::kinematics::MovableFrame("StereoCamTop3");
-  //workcell->addFrame(_frameGrabberFrame);
+    //rw::kinematics::MovableFrame* _frameGrabberFrame = new rw::kinematics::MovableFrame("StereoCamTop3");
+    //workcell->addFrame(_frameGrabberFrame);
 
-  //State state = workcell->getDefaultState();
+    //State state = workcell->getDefaultState();
     //_frameGrabberFrame->setTransform(something, state);
-  
-   // create GLFrameGrabber
-   _fgrabber = ownedPtr( new GLFrameGrabber25D(640, 480, 45, 0.1) );
-   _fgrabber->init( getRobWorkStudio()->getView()->getSceneViewer() );
+
+    // create GLFrameGrabber
+    _fgrabber = ownedPtr( new GLFrameGrabber25D(640, 480, 45, 0.1) );
+    _fgrabber->init( getRobWorkStudio()->getView()->getSceneViewer() );
 
 
-   _fgrabber2D = ownedPtr( new GLFrameGrabber(640, 480, 45, 0.1) );
-   _fgrabber2D->init( getRobWorkStudio()->getView()->getSceneViewer() );
+    _fgrabber2D = ownedPtr( new GLFrameGrabber(640, 480, 45, 0.1) );
+    _fgrabber2D->init( getRobWorkStudio()->getView()->getSceneViewer() );
 
 
-   //getRobWorkStudio()->setState(state); 
+    //getRobWorkStudio()->setState(state);
 }
 void LuluWinz::close() { /* do something when the workcell is closed */}
 
 void LuluWinz::initialize() {
     /* do something when plugin is initialized */
     getRobWorkStudio()->stateChangedEvent().add(
-            boost::bind(&LuluWinz::stateChangedListener, this, _1), this);
+                boost::bind(&LuluWinz::stateChangedListener, this, _1), this);
 }
 
 void LuluWinz::stateChangedListener(const State& state) {
@@ -95,32 +95,46 @@ void LuluWinz::createAndSavePCD(Frame *camFrame, std::string name)
     pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
 
     int i = 0;
-    for(size_t r = 0; r < cloud.height; ++r) {
-        for(size_t c = 0; c < cloud.width; ++c){
+    for(size_t r = 0; r < cloud.height; ++r)
+    {
+        for(size_t c = 0; c < cloud.width; ++c)
+        {
             cloud(c,r).x = pcloud.getData()[i](0);
             cloud(c,r).y = pcloud.getData()[i](1);
-
             cloud(c,r).z = pcloud.getData()[i++](2);
         }
     }
 
-   pcl::io::savePCDFileASCII(name,cloud);
+    pcl::io::savePCDFileASCII(name,cloud);
 
-   int ii = 5;
-    Mat_<float> depthm(cloud.height, cloud.width);
-    Mat_<Vec3b> rgb(cloud.height, cloud.width);
-    for(size_t r = 0; r < depthm.rows; ++r) {
-        for(size_t c = 0; c < depthm.cols; ++c){
-            //if (ii > 0) log().info() <<cloud(c,r).z << "\n";
-            depthm[r][c] = cloud(c,r).z;
+    Mat_<ushort> depthm(cloud.height, cloud.width);
+    for(size_t r = 0; r < depthm.rows; ++r)
+    {
+        for(size_t c = 0; c < depthm.cols; ++c)
+        {
+            depthm[r][c] = (ushort)(cloud(c,r).z * (-1000));
         }
     }
 
-    Mat_<ushort> depthmm = 1000*depthm;
-    imwrite("depth.png", depthm);
-    imwrite("image25D.png", depthmm);
+//    bool temp = false;
+//    int zz = 0;
 
-    //PointCloud::savePCD(pcloud, name);
+//    for(size_t r = 0; r < depthm.rows; ++r)
+//    {
+//        for(size_t c = 0; c < depthm.cols; ++c)
+//        {
+//            if (depthm[r][c] != 0 && !temp)
+//            {
+//                temp = true;
+//                zz =  depthm[r][c];
+//            }
+//        }
+//    }
+//    log().info() << "first non zero depth: " << zz << "\n";
+
+
+    imwrite("image25D.png", depthm);
+
     log().info() << "Saved point cloud: " << name <<"\n";
     //_---------------------------
     _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
@@ -145,10 +159,10 @@ void LuluWinz::sick2Event()
     }
     else
     {
-      log().info() << "camFrameUp frame is null\n";
+        log().info() << "camFrameUp frame is null\n";
     }
 
-   /* if(camFrameDown!=NULL)
+    /* if(camFrameDown!=NULL)
     {
         createAndSavePCD(camFrameDown, std::string("Down.pcd"));
     }
