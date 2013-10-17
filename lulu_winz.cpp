@@ -17,6 +17,10 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
 //#include <rw/kinematics/Kinematics.hpp>
+//---------------------------
+#include <iostream>
+#include <map>
+#include <utility>
 
 
 USE_ROBWORK_NAMESPACE
@@ -32,6 +36,7 @@ using namespace std;
 
 GLFrameGrabber25D::Ptr _fgrabber;
 GLFrameGrabber::Ptr _fgrabber2D;
+
 
 LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
 {
@@ -78,14 +83,6 @@ void LuluWinz::sick1Event() {
     getRobWorkStudio() -> openFile("/home/lulu/Desktop/IntellActScene/IntellActScene.xml");
     log().info() << "Loading scene\n";
 }
-
-
-pcl::PointCloud<pcl::PointXYZ> LuluWinz::combinePointClouds(pcl::PointCloud<pcl::PointXYZ> master,  pcl::PointCloud<pcl::PointXYZ> slave)
-{   
-    master += slave;
-    return master;
-}
-
 
 pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform)
 {
@@ -175,6 +172,16 @@ void LuluWinz::sick2Event()
 {
     QObject *obj = sender();
 
+    map<string, QCheckBox*> checkBoxMap;
+    checkBoxMap["top"] = _top;
+    checkBoxMap["bottom"] = _bottom;
+
+    for( map<string, QCheckBox*>::iterator ii=checkBoxMap.begin(); ii!=checkBoxMap.end(); ++ii)
+    {
+       //cout << (*ii).first << ": " << (*ii).second << endl;
+
+    }
+
     Frame *camFrameTop = getRobWorkStudio()->getWorkCell()->findFrame("top.LeftVisu");
     Frame *camFrameBottom = getRobWorkStudio()->getWorkCell()->findFrame("bottom.LeftVisu");
     Frame *camFrameRight = getRobWorkStudio()->getWorkCell()->findFrame("right.LeftVisu");
@@ -221,18 +228,6 @@ void LuluWinz::sick2Event()
     top += right;
     top += right2;
     fullPontCloud = top;
-
-
-//    fullPontCloud = combinePointClouds(top, bottom);
-//    log().info() << "Combined top & bottom " <<"\n";
-//    fullPontCloud = combinePointClouds(fullPontCloud, right);
-//    log().info() << "Combined master & right " <<"\n";
-//    fullPontCloud = combinePointClouds(fullPontCloud, left);
-//    log().info() << "Combined master & left " <<"\n";
-//    fullPontCloud = combinePointClouds(fullPontCloud, left2);
-//    log().info() << "Combined master & left2 " <<"\n";
-//    fullPontCloud = combinePointClouds(fullPontCloud, right2);
-//    log().info() << "Combined master & right2 " <<"\n";
 
     pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
     log().info() << "Finished " <<"\n";
