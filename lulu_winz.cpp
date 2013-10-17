@@ -82,19 +82,7 @@ void LuluWinz::sick1Event() {
 
 pcl::PointCloud<pcl::PointXYZ> LuluWinz::combinePointClouds(pcl::PointCloud<pcl::PointXYZ> master,  pcl::PointCloud<pcl::PointXYZ> slave)
 {   
-    // master += slave;
-    for(size_t r = 0; r < master.height; ++r)
-    {
-        for(size_t c = 0; c < master.width; ++c)
-        {
-            if (master(c,r).z == 0)
-            {
-                master(c,r).x = slave(c,r).x;
-                master(c,r).y = slave(c,r).y;
-                master(c,r).z = slave(c,r).z *(-1);
-            }
-        }
-    }
+    master += slave;
     return master;
 }
 
@@ -107,20 +95,38 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
     PointCloud pcloud(img.getWidth(),img.getHeight());
     pcloud.getData() = img.getData();
 
+
+
     //delete the plane
     for(int i=0;i<pcloud.getData().size();i++){
-        if(MetricUtil::norm2(pcloud.getData()[i])>2){ //6
+        if(MetricUtil::norm2(pcloud.getData()[i])> 2){ //6
             pcloud.getData()[i] = Vector3D<float>(0,0,0);
         }
     }
 
-    //transform points
+    //from double to floats....
+    Transform3D<float> newT;
+    newT(0,0) = transform(0,0); newT(0,1) = transform(0,1); newT(0,2) = transform(0,2); newT(0,3) = transform(0,3);
+    newT(1,0) = transform(1,0); newT(1,1) = transform(1,1); newT(1,2) = transform(1,2); newT(1,3) = transform(1,3);
+    newT(2,0) = transform(2,0); newT(2,1) = transform(2,1); newT(2,2) = transform(2,2); newT(2,3) = transform(2,3);
 
-    for (size_t i = 0; i < cloud.points.size (); ++i)
+    //transform to world frame
+    for (int i=0;i<pcloud.getData().size();i++)
     {
-        Vector3D<double> worldPoint = wTcu*cloud[i];
-    }
 
+        pcloud.getData()[i] = newT * pcloud.getData()[i];
+        //        pcloud.getData()[i](0) = static_cast<float> (transform (0, 0) * pcloud.getData()[i](0) +
+        //                                                     transform (0, 1) * pcloud.getData()[i](1) +
+        //                                                     transform (0, 2) * pcloud.getData()[i](2) + transform (0, 3));
+
+        //        pcloud.getData()[i](1) = static_cast<float> (transform (1, 0) * pcloud.getData()[i](0) +
+        //                                                     transform (1, 1) * pcloud.getData()[i](1) +
+        //                                                     transform (1, 2) * pcloud.getData()[i](2) + transform (1, 3));
+
+        //        pcloud.getData()[i](2) = static_cast<float> (transform (2, 0) * pcloud.getData()[i](0) +
+        //                                                     transform (2, 1) * pcloud.getData()[i](1) +
+        //                                                     transform (2, 2) * pcloud.getData()[i](2) + transform (2, 3));
+    }
 
     //from PointCloud to pcl::PointCloud
     pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
@@ -136,86 +142,100 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
         }
     }
 
-    //-------------
-    //    if (cloud.is_dense)
-    //    {
-    //        log().info() << "cloud: " << name << " is dense\n";
-    //    }
-    //    //so point clouds are dense
-    //    for (size_t i = 0; i < cloud.points.size (); ++i)
-    //    {
-    //        cloud[i].x = static_cast<float> (transform (0, 0)  * cloud[i].x + transform (0, 1) * cloud[i].y + transform (0, 2) * cloud[i].z + 0);
-    //        cloud[i].y = static_cast<float> (transform (1, 0) * cloud[i].x + transform (1, 1) * cloud[i].y + transform (1, 2) * cloud[i].z + transform (1, 3));
-    //        cloud[i].z = static_cast<float> (transform (2, 0) * cloud[i].x + transform (2, 1) * cloud[i].y + transform (2, 2) * cloud[i].z + transform (2, 3));
-    //    }
-
-    //--------------
     pcl::io::savePCDFileASCII(name,cloud); //save point cloud
 
     return cloud;
+}
 
-    //save depth map
-    //    Mat_<ushort> depthm(cloud.height, cloud.width);
-    //    for(size_t r = 0; r < depthm.rows; ++r)
-    //    {
-    //        for(size_t c = 0; c < depthm.cols; ++c)
-    //        {
-    //            depthm[r][c] = (ushort)(cloud(c,r).z * (-1000));
-    //        }
-    //    }
 
-    //    imwrite("image25D.png", depthm);
+void LuluWinz::saveDepthMap(pcl::PointCloud<pcl::PointXYZ> cloud, string name)
+{
+    Mat_<ushort> depthm(cloud.height, cloud.width);
+    for(size_t r = 0; r < depthm.rows; ++r)
+    {
+        for(size_t c = 0; c < depthm.cols; ++c)
+        {
+            depthm[r][c] = (ushort)(cloud(c,r).z * (-1000));
+        }
+    }
 
-    //    log().info() << "Saved point cloud: " << name <<"\n";
-    //    //_---------------------------
-    //    _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
-    //    const Image& img2D = _fgrabber2D->getImage();
-    //    img2D.saveAsPPM("image2D.ppm");
-    //    log().info() << "Image saved: " << "image2D.ppm" <<"\n";
+    imwrite(name, depthm);
+
+    log().info() << "Saved point cloud: " << name <<"\n";
+}
+void LuluWinz::saveRgbImage(Frame *camFrame, string name)
+{
+    _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
+    const Image& img2D = _fgrabber2D->getImage();
+    img2D.saveAsPPM(name);
+    log().info() << "Image saved: " << name <<"\n";
 }
 
 void LuluWinz::sick2Event() 
 {
     QObject *obj = sender();
 
-    Frame *camFrameUp = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice.LeftVisu");
-    Frame *camFrameDown = getRobWorkStudio()->getWorkCell()->findFrame("StereoCamTopDevice1.LeftVisu");
+    Frame *camFrameTop = getRobWorkStudio()->getWorkCell()->findFrame("top.LeftVisu");
+    Frame *camFrameBottom = getRobWorkStudio()->getWorkCell()->findFrame("bottom.LeftVisu");
+    Frame *camFrameRight = getRobWorkStudio()->getWorkCell()->findFrame("right.LeftVisu");
+    Frame *camFrameLeft = getRobWorkStudio()->getWorkCell()->findFrame("left.LeftVisu");
+    Frame *camFrameRight2 = getRobWorkStudio()->getWorkCell()->findFrame("right2.LeftVisu");
+    Frame *camFrameLeft2 = getRobWorkStudio()->getWorkCell()->findFrame("left2.LeftVisu");
 
-    pcl::PointCloud<pcl::PointXYZ> up;
-    pcl::PointCloud<pcl::PointXYZ> down;
+    pcl::PointCloud<pcl::PointXYZ> top;
+    pcl::PointCloud<pcl::PointXYZ> bottom;
+    pcl::PointCloud<pcl::PointXYZ> right;
+    pcl::PointCloud<pcl::PointXYZ> left;
+    pcl::PointCloud<pcl::PointXYZ> right2;
+    pcl::PointCloud<pcl::PointXYZ> left2;
+
     pcl::PointCloud<pcl::PointXYZ> fullPontCloud;
 
+    rw::math::Transform3D<double> wTcu = Kinematics::worldTframe(camFrameTop, getRobWorkStudio()->getState());
+    top = createAndSavePCD(camFrameTop, std::string("top.pcd"), wTcu);
+    log().info() << "Loaded top " <<"\n";
+
+    rw::math::Transform3D<double> wTcd =  Kinematics::worldTframe(camFrameBottom, getRobWorkStudio()->getState());
+    bottom = createAndSavePCD(camFrameBottom, std::string("bottom.pcd"), wTcd);
+    log().info() << "Loaded bottom " <<"\n";
+
+    rw::math::Transform3D<double> wTcr =  Kinematics::worldTframe(camFrameRight, getRobWorkStudio()->getState());
+    right = createAndSavePCD(camFrameRight, std::string("right.pcd"), wTcr);
+    log().info() << "Loaded right " <<"\n";
+
+    rw::math::Transform3D<double> wTcl =  Kinematics::worldTframe(camFrameLeft, getRobWorkStudio()->getState());
+    left = createAndSavePCD(camFrameLeft, std::string("left.pcd"), wTcl);
+    log().info() << "Loaded left " <<"\n";
+
+    rw::math::Transform3D<double> wTcr2 =  Kinematics::worldTframe(camFrameRight2, getRobWorkStudio()->getState());
+    right2 = createAndSavePCD(camFrameRight2, std::string("right2.pcd"), wTcr2);
+    log().info() << "Loaded right2 " <<"\n";
+
+    rw::math::Transform3D<double> wTcl2 =  Kinematics::worldTframe(camFrameLeft2, getRobWorkStudio()->getState());
+    left2 = createAndSavePCD(camFrameLeft2, std::string("left2.pcd"), wTcl2);
+    log().info() << "Loaded left2 " <<"\n";
+
+    top += bottom;
+    right += left;
+    right2+= left2;
+    top += right;
+    top += right2;
+    fullPontCloud = top;
 
 
-    if(camFrameUp!=NULL)
-    {
-        rw::math::Transform3D<double> wTcu =  Kinematics::worldTframe(camFrameUp, getRobWorkStudio()->getState());
-        //worldTframe(camFrameUp, getRobWorkStudio()->getState());
-        cout << wTcu << endl;
-        //        Eigen::Matrix4f transform;
-        //        transform <<      0.2,        0,   -0.4,     0,
-        //                          -0.4,       0,   0.7991,  -0.25,
-        //                          -0.8939,    0,   -0.4481,  0.5,
-        //                          0,          0,   0,        1;
+//    fullPontCloud = combinePointClouds(top, bottom);
+//    log().info() << "Combined top & bottom " <<"\n";
+//    fullPontCloud = combinePointClouds(fullPontCloud, right);
+//    log().info() << "Combined master & right " <<"\n";
+//    fullPontCloud = combinePointClouds(fullPontCloud, left);
+//    log().info() << "Combined master & left " <<"\n";
+//    fullPontCloud = combinePointClouds(fullPontCloud, left2);
+//    log().info() << "Combined master & left2 " <<"\n";
+//    fullPontCloud = combinePointClouds(fullPontCloud, right2);
+//    log().info() << "Combined master & right2 " <<"\n";
 
-        up = createAndSavePCD(camFrameUp, std::string("up.pcd"), wTcu);
-    }
-    else
-    {
-        log().info() << "camFrameUp frame is null\n";
-    }
-
-    //    if(camFrameDown!=NULL)
-    //    {
-    //        down = createAndSavePCD(camFrameDown, std::string("down.pcd"));
-    //    }
-    //    else
-    //    {
-    //        log().info() << "camFrameDown frame is null\n";
-    //    }
-
-    //    fullPontCloud = combinePointClouds(up, down);
-    //    pcl::io::savePCDFileASCII("combined.pcd",fullPontCloud);
+    pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
+    log().info() << "Finished " <<"\n";
 }
 
 Q_EXPORT_PLUGIN2(LuluWinz, LuluWinz);

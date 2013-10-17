@@ -32,8 +32,8 @@ using namespace rw::kinematics;
 
 class LuluWinz: public rws::RobWorkStudioPlugin, private Ui::LuluWinz
 {
-Q_OBJECT
-Q_INTERFACES( rws::RobWorkStudioPlugin )
+    Q_OBJECT
+    Q_INTERFACES( rws::RobWorkStudioPlugin )
 public:
     LuluWinz();
     virtual ~LuluWinz();
@@ -54,7 +54,8 @@ private:
     pcl::PointCloud<pcl::PointXYZ> createAndSavePCD(Frame *, std::string, rw::math::Transform3D<double>);
     //method combines point clouds and return the full one
     pcl::PointCloud<pcl::PointXYZ> combinePointClouds(pcl::PointCloud<pcl::PointXYZ>,  pcl::PointCloud<pcl::PointXYZ>);
-
+    void saveDepthMap(pcl::PointCloud<pcl::PointXYZ> , string );
+    void saveRgbImage(Frame *, string );
 };
 
 #endif /*LULUWINZ_HPP*/
