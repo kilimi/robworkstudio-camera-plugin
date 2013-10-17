@@ -51,7 +51,9 @@ private slots:
     void stateChangedListener(const rw::kinematics::State& state);
 private:
     //QPushButton* _btn0,*_btn1;
-    void createAndSavePCD(Frame *, std::string);
+    pcl::PointCloud<pcl::PointXYZ> createAndSavePCD(Frame *, std::string, rw::math::Transform3D<double>);
+    //method combines point clouds and return the full one
+    pcl::PointCloud<pcl::PointXYZ> combinePointClouds(pcl::PointCloud<pcl::PointXYZ>,  pcl::PointCloud<pcl::PointXYZ>);
 
 };
 
