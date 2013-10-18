@@ -12,15 +12,17 @@
 #include <rwlibs/simulation/SimulatedKinnect.hpp>
 #include <opencv2/opencv.hpp>
 
-
+#include <pcl/visualization/cloud_viewer.h>
+#include <boost/thread/thread.hpp>
 #include <iostream>
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_types.h>
-//#include <rw/kinematics/Kinematics.hpp>
-//---------------------------
-#include <iostream>
-#include <map>
-#include <utility>
+
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 USE_ROBWORK_NAMESPACE
@@ -36,6 +38,7 @@ using namespace std;
 
 GLFrameGrabber25D::Ptr _fgrabber;
 GLFrameGrabber::Ptr _fgrabber2D;
+int _size_of_cameras = 6;
 
 
 LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
@@ -43,6 +46,19 @@ LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
     setupUi(this);
     connect(myButton, SIGNAL(clicked()), this, SLOT(sick1Event()));
     connect(run, SIGNAL(clicked()), this, SLOT(sick2Event()));
+
+
+    pcdButtons[0] = _showPointCloudtop;
+    pcdButtons[1] = _showPointCloudbottom;
+    pcdButtons[2] = _showPointCloudright;
+    pcdButtons[3] = _showPointCloudleft;
+    pcdButtons[4] = _showPointCloudright2;
+    pcdButtons[5] = _showPointCloudleft2;
+    //pcd buttons
+    for(int i = 0; i < _size_of_cameras; i++)
+    {
+        connect(pcdButtons[i], SIGNAL(clicked()), this, SLOT(showPointCloudEvent()));
+    }
 
 }
 
@@ -85,6 +101,26 @@ void LuluWinz::sick1Event() {
     run->setEnabled(true);
     log().info() << "Scene loaded\n";
 
+}
+void LuluWinz::showPointCloudEvent()
+{
+    QPushButton *button = (QPushButton *)sender();
+    char *name = button->objectName().toLocal8Bit().data(); //from QString to char*
+    char* filename = name + 15;
+    strcat (filename,".pcd"); //here we get smth like top.pcd
+
+    // execl("/bin/ls", "ls");
+    //load point cloud
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    if (pcl::io::loadPCDFile<pcl::PointXYZ> (filename, *cloud) == -1) //* load the file
+    {
+        PCL_ERROR ("Couldn't read file \n");
+    }
+    else
+    {
+//        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+
+    }
 }
 
 pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform)
@@ -173,9 +209,9 @@ void LuluWinz::sick2Event()
 {
     QObject *obj = sender();
 
+
     //load checkboxes into array
-    int arraySize = 6;
-    QCheckBox* checkBoxArray[arraySize];
+    QCheckBox* checkBoxArray[_size_of_cameras];
     checkBoxArray[0]= _top;
     checkBoxArray[1]= _bottom;
     checkBoxArray[2]= _right;
@@ -185,7 +221,7 @@ void LuluWinz::sick2Event()
 
     pcl::PointCloud<pcl::PointXYZ> fullPontCloud;
 
-    for(int i = 0; i < arraySize; i++)
+    for(int i = 0; i < _size_of_cameras; i++)
     {
         if (checkBoxArray[i]->isChecked())
         {
@@ -209,7 +245,12 @@ void LuluWinz::sick2Event()
             pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc);
             if (_saveRGB->isChecked()) saveRgbImage(camFrame, rgb);
             if (_saveDepth->isChecked()) saveDepthMap(pointCloud, depth);
-            if (_savePointCloud->isChecked()) fullPontCloud += pointCloud;
+            if (_savePointCloud->isChecked())
+            {
+                fullPontCloud += pointCloud;
+                pcdButtons[i]->setEnabled(true);
+            }
+
         }
     }
 

@@ -47,12 +47,17 @@ public:
 private slots:
     void sick1Event();
     void sick2Event();
-
+    void showPointCloudEvent();
     void stateChangedListener(const rw::kinematics::State& state);
 private:
+    //QPushButton* _btn0,*_btn1;
+    //QCheckBox  _top, _bottom;
+
+    QPushButton *pcdButtons[6];
     pcl::PointCloud<pcl::PointXYZ> createAndSavePCD(Frame *, std::string, rw::math::Transform3D<double>);
     void saveDepthMap(pcl::PointCloud<pcl::PointXYZ> , string );
     void saveRgbImage(Frame*, string );
+
 };
 
 #endif /*LULUWINZ_HPP*/

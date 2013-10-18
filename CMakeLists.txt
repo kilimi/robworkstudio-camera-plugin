@@ -37,6 +37,7 @@ SET(SrcFiles lulu_winz.cpp ${UIS_OUT_H})
 QT4_WRAP_CPP(MocSrcFiles lulu_winz.hpp OPTIONS -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED)
 QT4_ADD_RESOURCES(RccSrcFiles resources.qrc)
 
+message(${PCL_LIBRARIES})
   # The shared library to build:
 ADD_LIBRARY(lulu_winz MODULE ${SrcFiles} ${MocSrcFiles}  ${RccSrcFiles})
 TARGET_LINK_LIBRARIES(lulu_winz ${ROBWORKSTUDIO_LIBRARIES} ${ROBWORK_LIBRARIES})
