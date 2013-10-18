@@ -43,6 +43,7 @@ LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
     setupUi(this);
     connect(myButton, SIGNAL(clicked()), this, SLOT(sick1Event()));
     connect(run, SIGNAL(clicked()), this, SLOT(sick2Event()));
+
 }
 
 LuluWinz::~LuluWinz(){ /* deallocate used memory */ }
@@ -81,7 +82,9 @@ void LuluWinz::stateChangedListener(const State& state) {
 void LuluWinz::sick1Event() {
     QObject *obj = sender();
     getRobWorkStudio() -> openFile("/home/lulu/Desktop/IntellActScene/IntellActScene.xml");
-    log().info() << "Loading scene\n";
+    run->setEnabled(true);
+    log().info() << "Scene loaded\n";
+
 }
 
 pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform)
@@ -139,7 +142,7 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
         }
     }
 
-    pcl::io::savePCDFileASCII(name,cloud); //save point cloud
+    if (_savePointCloud->isChecked()) pcl::io::savePCDFileASCII(name,cloud); //save point cloud
 
     return cloud;
 }
@@ -157,80 +160,61 @@ void LuluWinz::saveDepthMap(pcl::PointCloud<pcl::PointXYZ> cloud, string name)
     }
 
     imwrite(name, depthm);
-
-    log().info() << "Saved point cloud: " << name <<"\n";
 }
 void LuluWinz::saveRgbImage(Frame *camFrame, string name)
 {
     _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
     const Image& img2D = _fgrabber2D->getImage();
     img2D.saveAsPPM(name);
-    log().info() << "Image saved: " << name <<"\n";
 }
+
 
 void LuluWinz::sick2Event() 
 {
     QObject *obj = sender();
 
-    map<string, QCheckBox*> checkBoxMap;
-    checkBoxMap["top"] = _top;
-    checkBoxMap["bottom"] = _bottom;
-
-    for( map<string, QCheckBox*>::iterator ii=checkBoxMap.begin(); ii!=checkBoxMap.end(); ++ii)
-    {
-       //cout << (*ii).first << ": " << (*ii).second << endl;
-
-    }
-
-    Frame *camFrameTop = getRobWorkStudio()->getWorkCell()->findFrame("top.LeftVisu");
-    Frame *camFrameBottom = getRobWorkStudio()->getWorkCell()->findFrame("bottom.LeftVisu");
-    Frame *camFrameRight = getRobWorkStudio()->getWorkCell()->findFrame("right.LeftVisu");
-    Frame *camFrameLeft = getRobWorkStudio()->getWorkCell()->findFrame("left.LeftVisu");
-    Frame *camFrameRight2 = getRobWorkStudio()->getWorkCell()->findFrame("right2.LeftVisu");
-    Frame *camFrameLeft2 = getRobWorkStudio()->getWorkCell()->findFrame("left2.LeftVisu");
-
-    pcl::PointCloud<pcl::PointXYZ> top;
-    pcl::PointCloud<pcl::PointXYZ> bottom;
-    pcl::PointCloud<pcl::PointXYZ> right;
-    pcl::PointCloud<pcl::PointXYZ> left;
-    pcl::PointCloud<pcl::PointXYZ> right2;
-    pcl::PointCloud<pcl::PointXYZ> left2;
+    //load checkboxes into array
+    int arraySize = 6;
+    QCheckBox* checkBoxArray[arraySize];
+    checkBoxArray[0]= _top;
+    checkBoxArray[1]= _bottom;
+    checkBoxArray[2]= _right;
+    checkBoxArray[3]= _left;
+    checkBoxArray[4]= _right2;
+    checkBoxArray[5]= _left2;
 
     pcl::PointCloud<pcl::PointXYZ> fullPontCloud;
 
-    rw::math::Transform3D<double> wTcu = Kinematics::worldTframe(camFrameTop, getRobWorkStudio()->getState());
-    top = createAndSavePCD(camFrameTop, std::string("top.pcd"), wTcu);
-    log().info() << "Loaded top " <<"\n";
+    for(int i = 0; i < arraySize; i++)
+    {
+        if (checkBoxArray[i]->isChecked())
+        {
+            char *c_str2 = checkBoxArray[i]->text().toLocal8Bit().data(); //from QString to char*
+            char pcd[80], depth[80], rgb[80];
 
-    rw::math::Transform3D<double> wTcd =  Kinematics::worldTframe(camFrameBottom, getRobWorkStudio()->getState());
-    bottom = createAndSavePCD(camFrameBottom, std::string("bottom.pcd"), wTcd);
-    log().info() << "Loaded bottom " <<"\n";
+            //copy the frame name
+            strcpy (pcd,c_str2);
+            strcpy (depth,c_str2);
+            strcpy (rgb,c_str2);
 
-    rw::math::Transform3D<double> wTcr =  Kinematics::worldTframe(camFrameRight, getRobWorkStudio()->getState());
-    right = createAndSavePCD(camFrameRight, std::string("right.pcd"), wTcr);
-    log().info() << "Loaded right " <<"\n";
+            //concatinate
+            strcat (c_str2,".LeftVisu");
+            strcat (pcd,".pcd");
+            strcat (depth,".png");
+            strcat (rgb,".ppm");
 
-    rw::math::Transform3D<double> wTcl =  Kinematics::worldTframe(camFrameLeft, getRobWorkStudio()->getState());
-    left = createAndSavePCD(camFrameLeft, std::string("left.pcd"), wTcl);
-    log().info() << "Loaded left " <<"\n";
+            Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame(c_str2);
+            rw::math::Transform3D<double> wTc = Kinematics::worldTframe(camFrame, getRobWorkStudio()->getState());
 
-    rw::math::Transform3D<double> wTcr2 =  Kinematics::worldTframe(camFrameRight2, getRobWorkStudio()->getState());
-    right2 = createAndSavePCD(camFrameRight2, std::string("right2.pcd"), wTcr2);
-    log().info() << "Loaded right2 " <<"\n";
+            pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc);
+            if (_saveRGB->isChecked()) saveRgbImage(camFrame, rgb);
+            if (_saveDepth->isChecked()) saveDepthMap(pointCloud, depth);
+            if (_savePointCloud->isChecked()) fullPontCloud += pointCloud;
+        }
+    }
 
-    rw::math::Transform3D<double> wTcl2 =  Kinematics::worldTframe(camFrameLeft2, getRobWorkStudio()->getState());
-    left2 = createAndSavePCD(camFrameLeft2, std::string("left2.pcd"), wTcl2);
-    log().info() << "Loaded left2 " <<"\n";
-
-    top += bottom;
-    right += left;
-    right2+= left2;
-    top += right;
-    top += right2;
-    fullPontCloud = top;
-
-    pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
-    log().info() << "Finished " <<"\n";
+    if (_savePointCloud) pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
+    log().info() << "Done" << "\n";
 }
 
 Q_EXPORT_PLUGIN2(LuluWinz, LuluWinz);

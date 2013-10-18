@@ -50,8 +50,6 @@ private slots:
 
     void stateChangedListener(const rw::kinematics::State& state);
 private:
-    //QPushButton* _btn0,*_btn1;
-    QCheckBox * _top, _bottom;
     pcl::PointCloud<pcl::PointXYZ> createAndSavePCD(Frame *, std::string, rw::math::Transform3D<double>);
     void saveDepthMap(pcl::PointCloud<pcl::PointXYZ> , string );
     void saveRgbImage(Frame*, string );

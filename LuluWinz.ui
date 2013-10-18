@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>492</width>
-    <height>350</height>
+    <width>1019</width>
+    <height>355</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,28 +42,31 @@
         </item>
         <item row="1" column="0">
          <widget class="QCheckBox" name="_bottom">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <property name="text">
-           <string>Bottom view</string>
+           <string>bottom</string>
           </property>
           <property name="checked">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" alignment="Qt::AlignLeft">
+        <item row="0" column="2" alignment="Qt::AlignLeft">
          <widget class="QCheckBox" name="_right">
           <property name="text">
-           <string>Right view</string>
+           <string>right</string>
           </property>
           <property name="checked">
            <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="0" column="3">
          <widget class="QCheckBox" name="_right2">
           <property name="text">
-           <string>Right 2 view</string>
+           <string>right2</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -72,18 +75,11 @@
         </item>
         <item row="0" column="0" alignment="Qt::AlignLeft">
          <widget class="QCheckBox" name="_top">
-          <property name="text">
-           <string>Top view</string>
-          </property>
-          <property name="checked">
+          <property name="enabled">
            <bool>true</bool>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="_left">
           <property name="text">
-           <string>Left view</string>
+           <string>top</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -91,9 +87,19 @@
          </widget>
         </item>
         <item row="1" column="2">
+         <widget class="QCheckBox" name="_left">
+          <property name="text">
+           <string>left</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
          <widget class="QCheckBox" name="_left2">
           <property name="text">
-           <string>Left 2 view</string>
+           <string>left2</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -110,12 +116,31 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="_showPointCloudTop">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>PC</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>3</width>
+            <height>3</height>
+           </size>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
     </item>
     <item>
      <widget class="QPushButton" name="run">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Run</string>
       </property>
