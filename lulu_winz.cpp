@@ -118,7 +118,7 @@ void LuluWinz::showPointCloudEvent()
     }
     else
     {
-//        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+        //        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
 
     }
 }
@@ -130,8 +130,6 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
 
     PointCloud pcloud(img.getWidth(),img.getHeight());
     pcloud.getData() = img.getData();
-
-
 
     //delete the plane
     for(int i=0;i<pcloud.getData().size();i++){
@@ -147,22 +145,10 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
     newT(2,0) = transform(2,0); newT(2,1) = transform(2,1); newT(2,2) = transform(2,2); newT(2,3) = transform(2,3);
 
     //transform to world frame
-    for (int i=0;i<pcloud.getData().size();i++)
-    {
-
-        pcloud.getData()[i] = newT * pcloud.getData()[i];
-        //        pcloud.getData()[i](0) = static_cast<float> (transform (0, 0) * pcloud.getData()[i](0) +
-        //                                                     transform (0, 1) * pcloud.getData()[i](1) +
-        //                                                     transform (0, 2) * pcloud.getData()[i](2) + transform (0, 3));
-
-        //        pcloud.getData()[i](1) = static_cast<float> (transform (1, 0) * pcloud.getData()[i](0) +
-        //                                                     transform (1, 1) * pcloud.getData()[i](1) +
-        //                                                     transform (1, 2) * pcloud.getData()[i](2) + transform (1, 3));
-
-        //        pcloud.getData()[i](2) = static_cast<float> (transform (2, 0) * pcloud.getData()[i](0) +
-        //                                                     transform (2, 1) * pcloud.getData()[i](1) +
-        //                                                     transform (2, 2) * pcloud.getData()[i](2) + transform (2, 3));
-    }
+    //    for (int i=0;i<pcloud.getData().size();i++)
+    //    {
+    //        pcloud.getData()[i] = newT * pcloud.getData()[i];
+    //    }
 
     //from PointCloud to pcl::PointCloud
     pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
@@ -180,7 +166,37 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
 
     if (_savePointCloud->isChecked()) pcl::io::savePCDFileASCII(name,cloud); //save point cloud
 
-    return cloud;
+    //remove dots...
+    pcl::PointCloud<pcl::PointXYZ> tempCropped;
+    tempCropped.reserve(cloud.size());
+    for (int i=0;i<cloud.size();i++)
+    {
+        const pcl::PointXYZ& p = cloud[i];
+        if(p.x !=0 || p.y!=0 || p.z!= 0)
+            tempCropped.push_back(p);
+    }
+
+    //transform to world frame
+    for (int i=0; i < tempCropped.size(); i++)
+    {
+        float x = tempCropped[i].x;
+        float y = tempCropped[i].y;
+        float z = tempCropped[i].z;
+        tempCropped[i].x  = static_cast<float> (transform (0, 0) * x +
+                                                     transform (0, 1) * y +
+                                                     transform (0, 2) * z + transform (0, 3));
+
+        tempCropped[i].y = static_cast<float> (transform (1, 0) * x +
+                                                     transform (1, 1) * y +
+                                                     transform (1, 2) * z + transform (1, 3));
+
+        tempCropped[i].z = static_cast<float> (transform (2, 0) * x +
+                                                     transform (2, 1) * y +
+                                                     transform (2, 2) * z + transform (2, 3));
+
+
+    }
+    return tempCropped;
 }
 
 
@@ -241,7 +257,8 @@ void LuluWinz::sick2Event()
 
             Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame(c_str2);
             rw::math::Transform3D<double> wTc = Kinematics::worldTframe(camFrame, getRobWorkStudio()->getState());
-
+            log().info() <<pcd << "\n";
+            log().info() <<wTc << "\n";
             pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc);
             if (_saveRGB->isChecked()) saveRgbImage(camFrame, rgb);
             if (_saveDepth->isChecked()) saveDepthMap(pointCloud, depth);
@@ -254,7 +271,10 @@ void LuluWinz::sick2Event()
         }
     }
 
-    if (_savePointCloud) pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
+    if (_savePointCloud)
+    {
+        pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
+    }
     log().info() << "Done" << "\n";
 }
 
