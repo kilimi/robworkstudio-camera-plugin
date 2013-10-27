@@ -1,6 +1,6 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0)
 # The name of the project.
-PROJECT(lulu_winz)
+PROJECT(RWgetPCDepthRGB)
 
 # Used to resolve absolute path names
 SET(ROOT ${CMAKE_CURRENT_SOURCE_DIR})
@@ -30,16 +30,16 @@ find_package( OpenCV REQUIRED )
 #########################   From here we add the plugins 
 
 # if we want to use ui files add them here
-SET(UIS_FILES LuluWinz.ui)
+SET(UIS_FILES RWgetPCDepthRGB.ui)
 RWS_QT4_WRAP_UI(UIS_OUT_H ${UIS_FILES})
-SET(SrcFiles lulu_winz.cpp ${UIS_OUT_H})
+SET(SrcFiles RWgetPCDepthRGB.cpp ${UIS_OUT_H})
 
-QT4_WRAP_CPP(MocSrcFiles lulu_winz.hpp OPTIONS -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED)
+QT4_WRAP_CPP(MocSrcFiles RWgetPCDepthRGB.hpp OPTIONS -DBOOST_TT_HAS_OPERATOR_HPP_INCLUDED)
 QT4_ADD_RESOURCES(RccSrcFiles resources.qrc)
 
 message(${PCL_LIBRARIES})
   # The shared library to build:
-ADD_LIBRARY(lulu_winz MODULE ${SrcFiles} ${MocSrcFiles}  ${RccSrcFiles})
-TARGET_LINK_LIBRARIES(lulu_winz ${ROBWORKSTUDIO_LIBRARIES} ${ROBWORK_LIBRARIES})
-target_link_libraries(lulu_winz  ${PCL_LIBRARIES})
-target_link_libraries( lulu_winz ${OpenCV_LIBS} )
+ADD_LIBRARY(RWgetPCDepthRGB MODULE ${SrcFiles} ${MocSrcFiles}  ${RccSrcFiles})
+TARGET_LINK_LIBRARIES(RWgetPCDepthRGB ${ROBWORKSTUDIO_LIBRARIES} ${ROBWORK_LIBRARIES})
+target_link_libraries(RWgetPCDepthRGB  ${PCL_LIBRARIES})
+target_link_libraries(RWgetPCDepthRGB ${OpenCV_LIBS} )

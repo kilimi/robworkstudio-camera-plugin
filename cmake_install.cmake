@@ -1,4 +1,4 @@
-# Install script for directory: /home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz
+# Install script for directory: /home/lulu/RobWorks/trunk/RobWorkStudio/example/RWgetPCDepthRGB
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/lulu/RobWorks/trunk/RobWorkStudio/example/RWgetPCDepthRGB/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/lulu/RobWorks/trunk/RobWorkStudio/example/lulu_winz/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/lulu/RobWorks/trunk/RobWorkStudio/example/RWgetPCDepthRGB/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

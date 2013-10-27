@@ -1,5 +1,5 @@
 
-#include "lulu_winz.hpp"
+#include "RWgetPCDepthRGB.hpp"
 
 #include <string.h>
 
@@ -8,7 +8,7 @@
 #include <rwlibs/simulation/GLFrameGrabber.hpp>
 #include <RobWorkStudio.hpp>
 #include <rw/geometry/PointCloud.hpp>
-#include "ui_LuluWinz.h"
+#include "ui_RWgetPCDepthRGB.h"
 #include <rwlibs/simulation/SimulatedKinnect.hpp>
 #include <opencv2/opencv.hpp>
 
@@ -36,12 +36,14 @@ using namespace rw::kinematics;
 using namespace cv;
 using namespace std;
 
+#define _size_of_cameras 7
+
 GLFrameGrabber25D::Ptr _fgrabber;
 GLFrameGrabber::Ptr _fgrabber2D;
-int _size_of_cameras = 6;
 
 
-LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
+
+RWgetPCDepthRGB::RWgetPCDepthRGB() : RobWorkStudioPlugin("RWgetPCDepthRGB", QIcon(":/pa_icon.png"))
 {
     setupUi(this);
     connect(myButton, SIGNAL(clicked()), this, SLOT(sick1Event()));
@@ -54,17 +56,31 @@ LuluWinz::LuluWinz() : RobWorkStudioPlugin("LuluWinz", QIcon(":/pa_icon.png"))
     pcdButtons[3] = _showPointCloudleft;
     pcdButtons[4] = _showPointCloudright2;
     pcdButtons[5] = _showPointCloudleft2;
+    pcdButtons[6] = _showPointCloudcombined;
+
+    depthButtons[0] = _showDepthTop;
+    depthButtons[1] = _showDepthBottom;
+    depthButtons[2] = _showDepthRight;
+    depthButtons[3] = _showDepthLeft;
+    depthButtons[4] = _showDepthRight2;
+    depthButtons[5] = _showDepthLeft2;
+
     //pcd buttons
     for(int i = 0; i < _size_of_cameras; i++)
     {
         connect(pcdButtons[i], SIGNAL(clicked()), this, SLOT(showPointCloudEvent()));
     }
+    //depth buttons
+    for(int i = 0; i < _size_of_cameras-1; i++)
+    {
+        connect(depthButtons[i], SIGNAL(clicked()), this, SLOT(showDepthEvent()));
+    }
 
 }
 
-LuluWinz::~LuluWinz(){ /* deallocate used memory */ }
+RWgetPCDepthRGB::~RWgetPCDepthRGB(){ /* deallocate used memory */ }
 
-void LuluWinz::open(WorkCell* workcell)
+void RWgetPCDepthRGB::open(WorkCell* workcell)
 { 
     //rw::kinematics::MovableFrame* _frameGrabberFrame = new rw::kinematics::MovableFrame("StereoCamTop3");
     //workcell->addFrame(_frameGrabberFrame);
@@ -83,47 +99,52 @@ void LuluWinz::open(WorkCell* workcell)
 
     //getRobWorkStudio()->setState(state);
 }
-void LuluWinz::close() { /* do something when the workcell is closed */}
+void RWgetPCDepthRGB::close() { /* do something when the workcell is closed */}
 
-void LuluWinz::initialize() {
+void RWgetPCDepthRGB::initialize() {
     /* do something when plugin is initialized */
     getRobWorkStudio()->stateChangedEvent().add(
-                boost::bind(&LuluWinz::stateChangedListener, this, _1), this);
+                boost::bind(&RWgetPCDepthRGB::stateChangedListener, this, _1), this);
 }
 
-void LuluWinz::stateChangedListener(const State& state) {
+void RWgetPCDepthRGB::stateChangedListener(const State& state) {
     log().info() << "State changed!";
 }
 
-void LuluWinz::sick1Event() {
+void RWgetPCDepthRGB::sick1Event() {
     QObject *obj = sender();
     getRobWorkStudio() -> openFile("/home/lulu/Desktop/IntellActScene/IntellActScene.xml");
     run->setEnabled(true);
     log().info() << "Scene loaded\n";
 
 }
-void LuluWinz::showPointCloudEvent()
+void RWgetPCDepthRGB::showPointCloudEvent()
 {
     QPushButton *button = (QPushButton *)sender();
-    char *name = button->objectName().toLocal8Bit().data(); //from QString to char*
-    char* filename = name + 15;
-    strcat (filename,".pcd"); //here we get smth like top.pcd
+    QString str;
 
-    // execl("/bin/ls", "ls");
-    //load point cloud
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
-    if (pcl::io::loadPCDFile<pcl::PointXYZ> (filename, *cloud) == -1) //* load the file
-    {
-        PCL_ERROR ("Couldn't read file \n");
-    }
-    else
-    {
-        //        boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
+    str.append("pcl_viewer ");
+    str.append(button->objectName().remove(0, 15).toLower());
+    str.append(".pcd &");
 
-    }
+    //    log().info() << str.toLocal8Bit().data();
+    system(str.toLocal8Bit().data());
+
 }
 
-pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform)
+void RWgetPCDepthRGB::showDepthEvent()
+{
+    QPushButton *button = (QPushButton *)sender();
+    QString str;
+
+    str.append("eog ");
+    str.append(button->objectName().remove(0, 10).toLower());
+    str.append(".png &");
+
+    system(str.toLocal8Bit().data());
+}
+
+pcl::PointCloud<pcl::PointXYZ> RWgetPCDepthRGB::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform, std::string  depth, int num)
 {
     _fgrabber->grab(camFrame , getRobWorkStudio()->getState() );
     const Image25D& img = _fgrabber->getImage();
@@ -164,7 +185,13 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
         }
     }
 
-    if (_savePointCloud->isChecked()) pcl::io::savePCDFileASCII(name,cloud); //save point cloud
+    //this should be the more right point cloud, but contains extra dot..
+    //    if (_savePointCloud->isChecked()) pcl::io::savePCDFileASCII(name,cloud); //save point cloud
+    if (_saveDepth->isChecked())
+    {
+        saveDepthMap(cloud, depth);
+        depthButtons[num]->setEnabled(true);
+    }
 
     //remove dots...
     pcl::PointCloud<pcl::PointXYZ> tempCropped;
@@ -183,24 +210,26 @@ pcl::PointCloud<pcl::PointXYZ> LuluWinz::createAndSavePCD(Frame *camFrame, std::
         float y = tempCropped[i].y;
         float z = tempCropped[i].z;
         tempCropped[i].x  = static_cast<float> (transform (0, 0) * x +
-                                                     transform (0, 1) * y +
-                                                     transform (0, 2) * z + transform (0, 3));
+                                                transform (0, 1) * y +
+                                                transform (0, 2) * z + transform (0, 3));
 
         tempCropped[i].y = static_cast<float> (transform (1, 0) * x +
-                                                     transform (1, 1) * y +
-                                                     transform (1, 2) * z + transform (1, 3));
+                                               transform (1, 1) * y +
+                                               transform (1, 2) * z + transform (1, 3));
 
         tempCropped[i].z = static_cast<float> (transform (2, 0) * x +
-                                                     transform (2, 1) * y +
-                                                     transform (2, 2) * z + transform (2, 3));
+                                               transform (2, 1) * y +
+                                               transform (2, 2) * z + transform (2, 3));
 
 
     }
+    //without that dot point cloud...
+    if (_savePointCloud->isChecked()) pcl::io::savePCDFileASCII(name,tempCropped); //save point cloud
     return tempCropped;
 }
 
 
-void LuluWinz::saveDepthMap(pcl::PointCloud<pcl::PointXYZ> cloud, string name)
+void RWgetPCDepthRGB::saveDepthMap(pcl::PointCloud<pcl::PointXYZ> cloud, string name)
 {
     Mat_<ushort> depthm(cloud.height, cloud.width);
     for(size_t r = 0; r < depthm.rows; ++r)
@@ -213,7 +242,7 @@ void LuluWinz::saveDepthMap(pcl::PointCloud<pcl::PointXYZ> cloud, string name)
 
     imwrite(name, depthm);
 }
-void LuluWinz::saveRgbImage(Frame *camFrame, string name)
+void RWgetPCDepthRGB::saveRgbImage(Frame *camFrame, string name)
 {
     _fgrabber2D->grab(camFrame , getRobWorkStudio()->getState() );
     const Image& img2D = _fgrabber2D->getImage();
@@ -221,7 +250,7 @@ void LuluWinz::saveRgbImage(Frame *camFrame, string name)
 }
 
 
-void LuluWinz::sick2Event() 
+void RWgetPCDepthRGB::sick2Event()
 {
     QObject *obj = sender();
 
@@ -237,7 +266,7 @@ void LuluWinz::sick2Event()
 
     pcl::PointCloud<pcl::PointXYZ> fullPontCloud;
 
-    for(int i = 0; i < _size_of_cameras; i++)
+    for(int i = 0; i < _size_of_cameras-1; i++)
     {
         if (checkBoxArray[i]->isChecked())
         {
@@ -259,9 +288,9 @@ void LuluWinz::sick2Event()
             rw::math::Transform3D<double> wTc = Kinematics::worldTframe(camFrame, getRobWorkStudio()->getState());
             log().info() <<pcd << "\n";
             log().info() <<wTc << "\n";
-            pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc);
+            pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc, depth, i);
             if (_saveRGB->isChecked()) saveRgbImage(camFrame, rgb);
-            if (_saveDepth->isChecked()) saveDepthMap(pointCloud, depth);
+
             if (_savePointCloud->isChecked())
             {
                 fullPontCloud += pointCloud;
@@ -274,8 +303,9 @@ void LuluWinz::sick2Event()
     if (_savePointCloud)
     {
         pcl::io::savePCDFileASCII("combined.pcd", fullPontCloud);
+        pcdButtons[6]->setEnabled(true);
     }
     log().info() << "Done" << "\n";
 }
 
-Q_EXPORT_PLUGIN2(LuluWinz, LuluWinz);
+Q_EXPORT_PLUGIN2(RWgetPCDepthRGB, RWgetPCDepthRGB);
