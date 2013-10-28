@@ -65,6 +65,15 @@ RWgetPCDepthRGB::RWgetPCDepthRGB() : RobWorkStudioPlugin("RWgetPCDepthRGB", QIco
     depthButtons[4] = _showDepthRight2;
     depthButtons[5] = _showDepthLeft2;
 
+    rgbButtons[0] = _showRGBTop;
+    rgbButtons[1] = _showRGBBottom;
+    rgbButtons[2] = _showRGBRight;
+    rgbButtons[3] = _showRGBLeft;
+    rgbButtons[4] = _showRGBRight2;
+    rgbButtons[5] = _showRGBLeft2;
+
+
+
     //pcd buttons
     for(int i = 0; i < _size_of_cameras; i++)
     {
@@ -74,6 +83,11 @@ RWgetPCDepthRGB::RWgetPCDepthRGB() : RobWorkStudioPlugin("RWgetPCDepthRGB", QIco
     for(int i = 0; i < _size_of_cameras-1; i++)
     {
         connect(depthButtons[i], SIGNAL(clicked()), this, SLOT(showDepthEvent()));
+    }
+    //rgb buttons
+    for(int i = 0; i < _size_of_cameras-1; i++)
+    {
+        connect(rgbButtons[i], SIGNAL(clicked()), this, SLOT(showRGBEvent()));
     }
 
 }
@@ -143,6 +157,19 @@ void RWgetPCDepthRGB::showDepthEvent()
 
     system(str.toLocal8Bit().data());
 }
+
+void RWgetPCDepthRGB::showRGBEvent()
+{
+    QPushButton *button = (QPushButton *)sender();
+    QString str;
+
+    str.append("eog ");
+    str.append(button->objectName().remove(0, 8).toLower());
+    str.append(".ppm &");
+
+    system(str.toLocal8Bit().data());
+}
+
 
 pcl::PointCloud<pcl::PointXYZ> RWgetPCDepthRGB::createAndSavePCD(Frame *camFrame, std::string name, rw::math::Transform3D<double> transform, std::string  depth, int num)
 {
@@ -289,7 +316,11 @@ void RWgetPCDepthRGB::sick2Event()
             log().info() <<pcd << "\n";
             log().info() <<wTc << "\n";
             pcl::PointCloud<pcl::PointXYZ> pointCloud = createAndSavePCD(camFrame, pcd, wTc, depth, i);
-            if (_saveRGB->isChecked()) saveRgbImage(camFrame, rgb);
+            if (_saveRGB->isChecked())
+            {
+                saveRgbImage(camFrame, rgb);
+                rgbButtons[i] -> setEnabled(true);
+            }
 
             if (_savePointCloud->isChecked())
             {

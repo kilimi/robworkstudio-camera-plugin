@@ -48,13 +48,16 @@ private slots:
     void sick2Event();
     void showPointCloudEvent();
     void showDepthEvent();
+    void showRGBEvent();
     void stateChangedListener(const rw::kinematics::State& state);
+
 private:
     //QPushButton* _btn0,*_btn1;
     //QCheckBox  _top, _bottom;
 
     QPushButton *pcdButtons[7];
     QPushButton *depthButtons[6];
+    QPushButton *rgbButtons[6];
     pcl::PointCloud<pcl::PointXYZ> createAndSavePCD(Frame *, std::string, rw::math::Transform3D<double>, std::string, int);
     void saveDepthMap(pcl::PointCloud<pcl::PointXYZ> , string );
     void saveRgbImage(Frame*, string );
