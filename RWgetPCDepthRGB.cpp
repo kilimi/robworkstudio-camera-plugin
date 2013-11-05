@@ -12,7 +12,7 @@
 #include <rwlibs/simulation/SimulatedKinnect.hpp>
 #include <opencv2/opencv.hpp>
 
-#include <pcl/visualization/cloud_viewer.h>
+
 #include <boost/thread/thread.hpp>
 #include <iostream>
 #include <pcl/io/pcd_io.h>
@@ -73,7 +73,6 @@ RWgetPCDepthRGB::RWgetPCDepthRGB() : RobWorkStudioPlugin("RWgetPCDepthRGB", QIco
     rgbButtons[5] = _showRGBLeft2;
 
 
-
     //pcd buttons
     for(int i = 0; i < _size_of_cameras; i++)
     {
@@ -89,7 +88,6 @@ RWgetPCDepthRGB::RWgetPCDepthRGB() : RobWorkStudioPlugin("RWgetPCDepthRGB", QIco
     {
         connect(rgbButtons[i], SIGNAL(clicked()), this, SLOT(showRGBEvent()));
     }
-
 }
 
 RWgetPCDepthRGB::~RWgetPCDepthRGB(){ /* deallocate used memory */ }
@@ -106,12 +104,9 @@ void RWgetPCDepthRGB::open(WorkCell* workcell)
     _fgrabber = ownedPtr( new GLFrameGrabber25D(640, 480, 45, 0.1) );
     _fgrabber->init( getRobWorkStudio()->getView()->getSceneViewer() );
 
-
-    _fgrabber2D = ownedPtr( new GLFrameGrabber(640, 480, 45, 0.1) );
-    _fgrabber2D->init( getRobWorkStudio()->getView()->getSceneViewer() );
+   // cmbSensors->clear();
 
 
-    //getRobWorkStudio()->setState(state);
 }
 void RWgetPCDepthRGB::close() { /* do something when the workcell is closed */}
 
@@ -191,12 +186,6 @@ pcl::PointCloud<pcl::PointXYZ> RWgetPCDepthRGB::createAndSavePCD(Frame *camFrame
     newT(0,0) = transform(0,0); newT(0,1) = transform(0,1); newT(0,2) = transform(0,2); newT(0,3) = transform(0,3);
     newT(1,0) = transform(1,0); newT(1,1) = transform(1,1); newT(1,2) = transform(1,2); newT(1,3) = transform(1,3);
     newT(2,0) = transform(2,0); newT(2,1) = transform(2,1); newT(2,2) = transform(2,2); newT(2,3) = transform(2,3);
-
-    //transform to world frame
-    //    for (int i=0;i<pcloud.getData().size();i++)
-    //    {
-    //        pcloud.getData()[i] = newT * pcloud.getData()[i];
-    //    }
 
     //from PointCloud to pcl::PointCloud
     pcl::PointCloud<pcl::PointXYZ> cloud(640, 480);
@@ -312,6 +301,16 @@ void RWgetPCDepthRGB::sick2Event()
             strcat (rgb,".ppm");
 
             Frame *camFrame = getRobWorkStudio()->getWorkCell()->findFrame(c_str2);
+
+            double fovy;
+            int width,height;
+            std::string camId("Camera");
+            std::string camParam = camFrame->getPropertyMap().get<std::string>(camId);
+            std::istringstream iss (camParam, std::istringstream::in);
+            iss >> fovy >> width >> height;
+            _fgrabber2D = ownedPtr( new GLFrameGrabber(width,height,fovy) );
+            _fgrabber2D->init( getRobWorkStudio()->getView()->getSceneViewer());
+
             rw::math::Transform3D<double> wTc = Kinematics::worldTframe(camFrame, getRobWorkStudio()->getState());
             log().info() <<pcd << "\n";
             log().info() <<wTc << "\n";

@@ -52,8 +52,9 @@ private slots:
     void stateChangedListener(const rw::kinematics::State& state);
 
 private:
-    //QPushButton* _btn0,*_btn1;
-    //QCheckBox  _top, _bottom;
+    rw::kinematics::State _state;
+    rw::models::WorkCell* _workcell;
+
 
     QPushButton *pcdButtons[7];
     QPushButton *depthButtons[6];

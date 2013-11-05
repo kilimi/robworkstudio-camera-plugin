@@ -24,6 +24,7 @@ link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
 find_package( OpenCV REQUIRED )
+FIND_PACKAGE(ROS REQUIRED)
 
 
 #########################   From here we add the plugins 
